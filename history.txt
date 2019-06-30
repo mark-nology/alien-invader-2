@@ -1,5 +1,4 @@
 Things I did to try to get webpack working
-
 npm install --save-dev webpack-dev-server
 npm init -y
 npm install webpack --save-dev
@@ -13,3 +12,25 @@ npm install html-webpack-plugin
 npm list -g
 npm i -g npm
 npm run build
+
+
+useful resources
+================
+
+GENERAL WEBPACK AND FOR WEBSTORM
+
+https://webpack.js.org/guides/getting-started/#basic-setup
+https://www.jetbrains.com/help/webstorm/configuring-javascript-libraries.html
+
+MY WEBPACK PROBLEM SHOULD NOT BE THERE
+https://stackoverflow.com/questions/56567930/typeerror-cleanwebpackplugin-is-not-a-constructor
+
+NPM INSTALL
+
+https://docs.npmjs.com/cli/install
+
+PEER DEPENDENCIES - STILL TO READ
+
+https://nodejs.org/es/blog/npm/peer-dependencies/
+https://blog.angularindepth.com/npm-peer-dependencies-f843f3ac4e7f
+https://stackoverflow.com/questions/26737819/why-use-peer-dependencies-in-npm-for-plugins
