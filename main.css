@@ -1,0 +1,33 @@
+h1 {
+    color: purple;
+    font-family: Calibri, sans-serif;
+    text-align: center;
+}
+
+#gameArea {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background-color: cornflowerblue;
+}
+
+#centeredField {
+    width: 300px;
+    height: 300px;
+}
+
+.alienDiv {
+    background-color: lawngreen;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    /*display: none;*/
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
