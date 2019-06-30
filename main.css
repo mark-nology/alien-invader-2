@@ -16,12 +16,11 @@ h1 {
     height: 300px;
 }
 
-.alienDiv {
+.alien {
     background-color: lawngreen;
     position: absolute;
     width: 10px;
     height: 10px;
-    /*display: none;*/
 }
 
 .relative {
