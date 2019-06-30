@@ -1,0 +1,15 @@
+Things I did to try to get webpack working
+
+npm install --save-dev webpack-dev-server
+npm init -y
+npm install webpack --save-dev
+npm install webpack-cli --save-dev
+npm install
+npm audit
+npm install --save-dev css-loader@3.0.0
+npm run build
+npm install webpack
+npm install html-webpack-plugin
+npm list -g
+npm i -g npm
+npm run build
