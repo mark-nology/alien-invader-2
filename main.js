@@ -3,10 +3,8 @@ class Alien {
         this.name = name;
         this.pos = firstPosition;
     }
-    //es6 get syntax used to expose function as property, eg. alien.x rather than alien.x()
     get x() { return this.pos.x; }
     get y() { return this.pos.y; }
-    // I'm having trouble with eg 'set x' ended up in an infinite loop, used in AlienMovement.moveAlien()
     set x(x) { this.pos.x = x; }
     set y(y) { this.pos.y = y; }
     move() { AlienMovement.moveAlien(this); }
@@ -22,12 +20,12 @@ class Game {
         this.aliens.forEach(alien => DivImpl.createAndRenderAlien(alien)); // arrow functions tidy this up a lot
     }
     createAlien() {
-        name = this.alienCount.toString();
-        this.aliens.push(new Alien(name, this.uiLayer.getRandomPosition() ) );
+        const name = this.alienCount.toString();
+        const alien = new Alien( name, this.uiLayer.getRandomPosition() );
+        this.aliens.push( alien );
         this.alienCount++;
         console.log(this.alienCount);
-        console.log(this.aliens);
-
+        DivImpl.createAndRenderAlien(alien);
     }
     moveAliens() {
         this.aliens.map(alien => {
@@ -39,15 +37,15 @@ class Game {
 
 // wanted to break out from Alien for DI later, different movements might be used
 class AlienMovement {
+
     static moveAlien(alien) {
         const direction = Math.floor(Math.random()*4);
-        // console.log("direction ", direction);
         // yeah the arithmetic could be better but I'm not interested in that atm
         switch (direction) {
-            case 0: alien.x = ( (alien.x+10) % 300); break;
-            case 1: alien.x = ( (alien.x-10) % 300); break;
+            case 0: alien.x = ( (alien.x+10) % 300);  break;
+            case 1: alien.x = ( (alien.x-10) % 300); alien.x < 0 ? alien.x = -alien.x : alien.x ; break;
             case 2: alien.y = ( (alien.y+10) % 300); break;
-            case 3: alien.y = ( (alien.y-10) % 300); break;
+            case 3: alien.y = ( (alien.y-10) % 300); alien.y < 0 ? alien.y = -alien.y : alien.y ; break;
         }
     }
 
@@ -72,35 +70,27 @@ class DivImpl extends  UILayer {
         super();
     }
     static createAndRenderAlien(alien) {
-        console.log('createAndRenderAlien');
-        // console.log("New ", alien);
         DivImpl.createScreenAlien(alien);
         DivImpl.renderAlien(alien);
     }
     static renderAlien(alien) {
-        // console.log(alien);
         const screenAlienDiv = document.getElementById(alien.name);
         screenAlienDiv.style.left = alien.x.toString() + 'px';
         screenAlienDiv.style.top = alien.y.toString() + 'px';
-        // console.log(screenAlienDiv);
-        // console.log('------------');
     }
     static createScreenAlien(alien) {
-        console.log('createScreenAlien');
         var div = document.createElement("div");
         div.className = "alien";
         div.id = alien.name;
-        console.log(div);
         document.getElementById("gameArea").appendChild(div);
     }
 }
 
 let counter = 0;
 function runGame() {
-    // console.log('moveAliens called');
     game.moveAliens();
     counter ++;
-    if (counter > 7) {
+    if (counter > 2) {
         counter = 0;
         game.createAlien();
     }

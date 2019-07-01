@@ -17,8 +17,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+                <state relative-caret-position="799">
+                  <caret line="47" column="98" selection-start-line="47" selection-start-column="98" selection-end-line="47" selection-end-column="98" />
                 </state>
               </provider>
             </entry>
@@ -61,9 +61,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>renderAlien</find>
+      <find>game.moveAliens</find>
     </findStrings>
     <replaceStrings>
       <replace>createAndRenderAlien</replace>
+      <replace>// console.log</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -91,8 +93,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1996" />
-    <option name="y" value="-548" />
+    <option name="x" value="1913" />
+    <option name="y" value="-648" />
     <option name="width" value="1547" />
     <option name="height" value="829" />
   </component>
@@ -173,11 +175,18 @@
       <option name="project" value="LOCAL" />
       <updated>1561977163014</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="two aliens move around repeatedly, but so far not I'm not able to crete more">
+      <created>1561982077556</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1561982077556</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22321000" />
+    <option name="totallyTimeSpent" value="24754000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-656" width="1936" height="1176" extended-state="6" />
@@ -209,7 +218,8 @@
     <MESSAGE value="added some resource URLs to history.txt" />
     <MESSAGE value="getting towards moving aliens" />
     <MESSAGE value="problems moving aliens" />
-    <option name="LAST_COMMIT_MESSAGE" value="problems moving aliens" />
+    <MESSAGE value="two aliens move around repeatedly, but so far not I'm not able to crete more" />
+    <option name="LAST_COMMIT_MESSAGE" value="two aliens move around repeatedly, but so far not I'm not able to crete more" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -218,12 +228,6 @@
           <url>file://$PROJECT_DIR$/src/index.js</url>
           <line>62</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/main.js</url>
-          <line>32</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -252,8 +256,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+        <state relative-caret-position="799">
+          <caret line="47" column="98" selection-start-line="47" selection-start-column="98" selection-end-line="47" selection-end-column="98" />
         </state>
       </provider>
     </entry>
