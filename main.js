@@ -6,20 +6,20 @@ class Alien {
     //es6 get syntax used to expose function as property, eg. alien.x rather than alien.x()
     get x() { return this.pos.x; }
     get y() { return this.pos.y; }
-    set x(x) { this.x = x; }
-    set y(y) { this.y = y; }
+    // I'm having trouble with eg 'set x' ended up in an infinite loop, used in AlienMovement.moveAlien()
+    setx(xx) { this.pos.x = xx; }
+    sety(yy) { this.pos.y = yy; }
     move() { AlienMovement.moveAlien(this); }
 }
 
 class Game {
     constructor(alienNames ) {
-
         this.uiLayer = new DivImpl();
         this.aliens = alienNames.map(name => new Alien(name, this.uiLayer.getRandomPosition() )); // use map to transform invaderNames to array of Alien classes
         this.alienCount = alienNames.count;
     }
     initialRender() {
-        this.aliens.forEach(alien => DivImpl.renderAlien(alien)); // arrow functions tidy this up a lot
+        this.aliens.forEach(alien => DivImpl.createAndRenderAlien(alien)); // arrow functions tidy this up a lot
     }
     createAlien() {
         name = this.alienCount.toString();
@@ -30,32 +30,27 @@ class Game {
     moveAliens() {
         this.aliens.map(alien => {
             alien.move();
-            DivImpl.move(alien, newCoord);
+            DivImpl.renderAlien(alien);
         });
     }
 }
 
+// wanted to break out from Alien for DI later, different movements might be used
 class AlienMovement {
-    static registerAlien(alien) { AlienMovement[alien.name] = alien; }
-
     static moveAlien(alien) {
-        const currentX = alien.x;
-        let newX = currentX;
-        const currentY = alien.y;
-        let newY = currentY;
         const direction = Math.floor(Math.random()*4);
         console.log("direction ", direction);
+        // yeah the arithmetic could be better but I'm not interested in that atm
         switch (direction) {
-            case 0: alien.x = (alien.x+10) % 300; break;
-            case 1: alien.x = (alien.x-10) % 300; break;
-            case 2: alien.y = (alien.y+10) % 300; break;
-            case 3: alien.y = (alien.y-10) % 300; break;
+            case 0: alien.setx ( (alien.x+10) % 300); break;
+            case 1: alien.setx ( (alien.x-10) % 300); break;
+            case 2: alien.sety ( (alien.y+10) % 300); break;
+            case 3: alien.sety ( (alien.y-10) % 300); break;
         }
     }
 
 }
-AlienMovement.aliens = new Map([]);
-
+// later use AlienMovement.lastDirection = new Map([]);
 
 class UILayer {
     constructor() {
@@ -69,46 +64,44 @@ class UILayer {
     }
 }
 
+//diferen refinement uses canvas, this subclass moves divs around as aliens, need better class name
 class DivImpl extends  UILayer {
     constructor() {
         super();
     }
-
+    static createAndRenderAlien(alien) {
+        console.log("New ", alien);
+        DivImpl.createScreenAlien(alien);
+        DivImpl.renderAlien(alien);
+    }
     static renderAlien(alien) {
         console.log(alien);
-        const screenAlien = DivImpl.createScreenAlien(alien);
-        // const screenAlien = document.getElementById("alien001");
-        screenAlien.style.left = alien.x.toString() + 'px';
-        screenAlien.style.top = alien.y.toString() + 'px';
-        console.log(screenAlien);
-        console.log('------------')
+        const screenAlienDiv = document.getElementById(alien.name);
+        screenAlienDiv.style.left = alien.x.toString() + 'px';
+        screenAlienDiv.style.top = alien.y.toString() + 'px';
+        console.log(screenAlienDiv);
+        console.log('------------');
     }
-
     static createScreenAlien(alien) {
         var div = document.createElement("div");
         div.className = "alien";
         div.id = alien.name;
         document.getElementById("gameArea").appendChild(div);
-        return div;
     }
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function moveAliens() {
+    console.log('moveAliens called');
+    game.moveAliens();
 }
 
 const invaderNames = ["Zyglot", "Xev"];
 const game = new Game(invaderNames);
 game.initialRender();
+// I expected this to run forever
+setInterval(moveAliens(), 1000);
 
-async function testwait () {
-    for (let i = 0; i < 5; i++) {
-        await sleep(1000);
-        game.moveAliens();
-    }
-}
 
-testwait();
 
 ////////////////////////////////////////////
 
@@ -126,7 +119,7 @@ testwait();
     this.ctx.fillStyle = "#FF0000";
   }
 
-  renderAlien(alien) {
+  createAndRenderAlien(alien) {
     console.log(alien);
     this.ctx.fillRect(alien.x - 2, alien.y - 2, 4, 4);
     console.log("Alien at ", alien.x, alien.y);
