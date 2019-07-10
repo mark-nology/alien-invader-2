@@ -12,12 +12,12 @@ class Alien {
 
 class Game {
     constructor(alienNames ) {
-        this.uiLayer = new DivImpl();
+        this.uiLayer = new CanvasImpl();
         this.aliens = alienNames.map(name => new Alien(name, this.uiLayer.getRandomPosition() )); // use map to transform invaderNames to array of Alien classes
         this.alienCount = alienNames.length;
     }
     initialRender() {
-        this.aliens.forEach(alien => DivImpl.createAndRenderAlien(alien)); // arrow functions tidy this up a lot
+        this.aliens.forEach(alien => this.uiLayer.createAndRenderAlien(alien)); // arrow functions tidy this up a lot
     }
     createAlien() {
         const name = this.alienCount.toString();
@@ -25,12 +25,12 @@ class Game {
         this.aliens.push( alien );
         this.alienCount++;
         console.log(this.alienCount);
-        DivImpl.createAndRenderAlien(alien);
+        this.uiLayer.createAndRenderAlien(alien);
     }
     moveAliens() {
         this.aliens.map(alien => {
             alien.move();
-            DivImpl.renderAlien(alien);
+            CanvasImpl.renderAlien(alien);
         });
     }
 }
@@ -96,24 +96,22 @@ function runGame() {
     }
 }
 
-
-const invaderNames = ["Zyglot", "Xev"];
-const game = new Game(invaderNames);
-game.initialRender();
-setInterval(runGame, 200);
-
-
-
 ////////////////////////////////////////////
 
-/*class CanvasImpl extends  UILayer  {
+class CanvasImpl extends  UILayer  {
   constructor() {
     super();
     this.initCanvas();
   }
 
   initCanvas() {
-    this.canvas = document.getElementById("gameArea");
+      //messy got working (?) in a short time
+      var canv = document.createElement('canvas');
+      canv.id = 'canvasId';
+
+      //placeToAdd.appendChild(canv); // adds the canvas to the body element
+      document.getElementById('gameArea').appendChild(canv); // adds the canvas to #someBox
+    this.canvas = document.getElementById("canvasId");
     // console.log(this.canvas);
     this.ctx = this.canvas.getContext("2d");
     [this.canvas.width, this.canvas.height] = [this.size, this.size]; // extracted to variable to make randomPosition easier, used destructuring syntax to show off a bit
@@ -125,9 +123,14 @@ setInterval(runGame, 200);
     this.ctx.fillRect(alien.x - 2, alien.y - 2, 4, 4);
     // console.log("Alien at ", alien.x, alien.y);
   }
-}*/
+}
 
+///////////////////////////
 
+const invaderNames = ["Zyglot", "Xev"];
+const game = new Game(invaderNames);
+game.initialRender();
+setInterval(runGame, 200);
 
 // just for my later use
 
